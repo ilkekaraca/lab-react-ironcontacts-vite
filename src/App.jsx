@@ -1,34 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+// src/App.js
+import { useState } from "react";
+import "./App.css";
+import contacts from "./contacts.json";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [contactsArr, setContactsArr] = useState(contacts.slice(0, 5));
+  const randomContact = () => {
+    const remainingContacts = contacts.filter(
+      (ct) => !contactsArr.includes(ct)
+    );
+    const randomElement =
+      remainingContacts[Math.floor(Math.random() * remainingContacts.length)];
+    setContactsArr([...contactsArr, randomElement]);
+  };
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+      <table className="contact-table">
+        <tr>
+          <th>picture</th>
+          <th>name</th>
+          <th>popularity</th>
+          <th>Won Oscar</th>
 
-export default App
+          <th>Won Emmy</th>
+        </tr>
+        {contactsArr.map((ct) => {
+          return (
+            <tr>
+              <td>
+                <img src={ct.pictureUrl} />
+              </td>
+              <td>{ct.name}</td>
+              <td>{ct.popularity.toFixed(2)}</td>
+              <td>{ct.wonOscar ? "🏆" : ""}</td>
+              <td>{ct.wonEmmy ? "🏆" : ""}</td>
+            </tr>
+          );
+        })}
+      </table>
+      <button onClick={randomContact}>Add Random Contact</button>
+    </div>
+  );
+}
+export default App;

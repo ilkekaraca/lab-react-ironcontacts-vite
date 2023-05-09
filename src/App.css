@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+.contact-table img {
+  height: 100px;
+}
+.contact-table td,
+.contact-table th {
+  padding: 10px;
+}
