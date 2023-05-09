@@ -31,6 +31,11 @@ function App() {
     const popSort = contactsArr.sort((a, b) => b.popularity - a.popularity);
     setContactsArr([...popSort]);
   };
+  const deleteName = (id) => {
+    const nameDelete = contactsArr.filter((dl) => dl.id !== id);
+
+    setContactsArr([...nameDelete]);
+  };
 
   return (
     <div className="App">
@@ -42,6 +47,7 @@ function App() {
           <th>Won Oscar</th>
 
           <th>Won Emmy</th>
+          <th>Actions</th>
         </tr>
         {contactsArr.map((ct) => {
           return (
@@ -53,6 +59,9 @@ function App() {
               <td>{ct.popularity.toFixed(2)}</td>
               <td>{ct.wonOscar ? "🏆" : ""}</td>
               <td>{ct.wonEmmy ? "🏆" : ""}</td>
+              <td>
+                <button onClick={() => deleteName(ct.id)}>Delete</button>
+              </td>
             </tr>
           );
         })}
