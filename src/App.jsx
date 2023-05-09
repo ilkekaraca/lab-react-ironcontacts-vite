@@ -13,6 +13,24 @@ function App() {
       remainingContacts[Math.floor(Math.random() * remainingContacts.length)];
     setContactsArr([...contactsArr, randomElement]);
   };
+  const sortByName = () => {
+    const nameSort = contactsArr.sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log(nameSort);
+
+    setContactsArr([...nameSort]);
+  };
+  const sortByPop = () => {
+    const popSort = contactsArr.sort((a, b) => b.popularity - a.popularity);
+    setContactsArr([...popSort]);
+  };
 
   return (
     <div className="App">
@@ -40,6 +58,8 @@ function App() {
         })}
       </table>
       <button onClick={randomContact}>Add Random Contact</button>
+      <button onClick={sortByPop}>Sort by Popularity</button>
+      <button onClick={sortByName}>Sort by name</button>
     </div>
   );
 }
